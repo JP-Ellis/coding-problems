@@ -1,0 +1,30 @@
+name: "coding-problems"
+about: >-
+  Collection of coding problems and solutions.
+
+settings:
+  - UnifiedHelpMessage
+
+args:
+  - verbose:
+      short: v
+      long: verbose
+      multiple: true
+      takes_value: false
+      help: "Increase the verbosity of errors/warnings."
+      long_help: >-
+        Increase the verbosity of errors.  The errors are outputted to the
+        standard error stream and thus do not appear in the output.  This option
+        can be specified multiple times for increasing levels of verbosity.
+  - all:
+      short: a
+      long: all
+      multiple: false
+      takes_value: false
+      help: "Solve all problems."
+  - problem:
+      multiple: true
+      takes_value: true
+      help: "Problem to run"
+      long_help: >-
+        Problem to solve.  This can be specified multiple times.

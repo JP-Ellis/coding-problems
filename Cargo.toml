@@ -1,0 +1,26 @@
+[package]
+name = "coding-problems"
+version = "0.0.1"
+edition = "2018"
+authors = ["JP-Ellis <josh@jpellis.me>"]
+
+readme = "README.md"
+description = """
+Collection of various little coding problems with solutions.
+"""
+
+documentation = "https://github.com/JP-Ellis/coding-problems-rs"
+homepage = "https://github.com/JP-Ellis/coding-problems-rs"
+repository  = "https://github.com/JP-Ellis/coding-problems-rs"
+
+license = "GPL-3.0"
+
+[badges]
+travis-ci = { repository = "JP-Ellis/coding-problems-rs", branch = "master" }
+codecov = { repository = "JP-Ellis/coding-problems-rs", branch = "master", service = "github" }
+
+[dependencies]
+clap = { version = "2.33.0", features = ["yaml"] }
+fern = { version = "0.5.8", features = ["colored"] }
+log = "0.4.8"
+regex = "1"
