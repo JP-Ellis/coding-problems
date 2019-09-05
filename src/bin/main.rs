@@ -73,6 +73,18 @@ fn parse_args() -> Result<Args, Box<dyn Error>> {
     let dcp_regex = Regex::new(r"^(dcp|dc)(?P<num>\d+)$")?;
     let pe_regex = Regex::new(r"^pe(?P<num>\d+)$")?;
 
+    if matches.occurrences_of("all") == 1 {
+        for i in 0..1_000_000 {
+            if let Ok(p) = coding_problems::daily_coding_problem::problem(i) {
+                args.problems.push(p);
+            }
+            if let Ok(p) = coding_problems::project_euler::problem(i) {
+                args.problems.push(p);
+            }
+        }
+        return Ok(args);
+    }
+
     if let Some(problems) = matches.values_of("problem") {
         for problem in problems {
             if let Some(caps) = dcp_regex.captures(problem) {
