@@ -24,3 +24,4 @@ clap = { version = "2.33.0", features = ["yaml"] }
 fern = { version = "0.5.8", features = ["colored"] }
 log = "0.4.8"
 regex = "1"
+rand = "0.7.0"
