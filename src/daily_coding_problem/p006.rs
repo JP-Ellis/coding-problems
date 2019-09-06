@@ -21,3 +21,8 @@ impl Problem for P {
         Err("not implemented".to_string())
     }
 }
+
+#[cfg(all(test, feature = "nightly"))]
+mod benches {
+    use test::Bencher;
+}

@@ -51,3 +51,8 @@ impl Problem for P {
         }
     }
 }
+
+#[cfg(all(test, feature = "nightly"))]
+mod benches {
+    use test::Bencher;
+}
