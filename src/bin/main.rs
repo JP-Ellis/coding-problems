@@ -1,5 +1,6 @@
 use clap::{crate_authors, crate_version, load_yaml, App};
 use coding_problems::Problem;
+use colored::Colorize;
 use fern::colors;
 use regex::Regex;
 use std::{error::Error, io};
@@ -115,7 +116,11 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!(
             "--------------------------------------------------------------------------------"
         );
-        problem.solve()?;
+        if let Err(e) = problem.solve() {
+            println!("{}", e.red());
+        } else {
+            println!("{}", "Success!".green());
+        }
     }
 
     Ok(())

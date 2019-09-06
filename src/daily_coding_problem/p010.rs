@@ -11,7 +11,7 @@ impl Problem for P {
     }
 
     fn solve(&self) -> Result<(), String> {
-        unimplemented!()
+        Err("not implemented".to_string())
     }
 
     fn bench(&self) {

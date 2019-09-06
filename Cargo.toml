@@ -25,3 +25,4 @@ fern = { version = "0.5.8", features = ["colored"] }
 log = "0.4.8"
 regex = "1"
 rand = "0.7.0"
+colored = "1.8.0"
