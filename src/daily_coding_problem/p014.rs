@@ -50,8 +50,4 @@ impl Problem for P {
             ))
         }
     }
-
-    fn bench(&self) {
-        unimplemented!()
-    }
 }

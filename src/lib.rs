@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License along with
 // this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#![cfg_attr(feature = "nightly", feature(test))]
+#[cfg(feature = "nightly")]
+extern crate test;
+
 pub mod daily_coding_problem;
 pub mod project_euler;
 
@@ -24,7 +28,4 @@ pub trait Problem {
 
     /// Solve the problem with the basic
     fn solve(&self) -> Result<(), String>;
-
-    /// Benchmark the solution
-    fn bench(&self);
 }

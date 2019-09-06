@@ -71,8 +71,4 @@ impl Problem for P {
             Ok(())
         }
     }
-
-    fn bench(&self) {
-        unimplemented!()
-    }
 }

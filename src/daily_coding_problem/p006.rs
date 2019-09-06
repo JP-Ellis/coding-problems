@@ -20,8 +20,4 @@ impl Problem for P {
     fn solve(&self) -> Result<(), String> {
         Err("not implemented".to_string())
     }
-
-    fn bench(&self) {
-        unimplemented!()
-    }
 }
