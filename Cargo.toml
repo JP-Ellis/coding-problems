@@ -26,6 +26,7 @@ log = "0.4.8"
 regex = "1"
 rand = "0.7.0"
 colored = "1.8.0"
+num = "0.2.0"
 
 [features]
 default = []

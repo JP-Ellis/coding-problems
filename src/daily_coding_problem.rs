@@ -17,6 +17,8 @@ mod p011;
 mod p012;
 mod p013;
 mod p014;
+mod p015;
+mod p016;
 
 pub fn problem(i: usize) -> Result<Box<dyn Problem>, String> {
     match i {
@@ -34,6 +36,8 @@ pub fn problem(i: usize) -> Result<Box<dyn Problem>, String> {
         12 => Ok(Box::new(p012::P)),
         13 => Ok(Box::new(p013::P)),
         14 => Ok(Box::new(p014::P)),
+        15 => Ok(Box::new(p015::P)),
+        16 => Ok(Box::new(p016::P)),
         i => Err(format!(
             "Problem '{}' is not knowing within Daily Coding Problems.",
             i
