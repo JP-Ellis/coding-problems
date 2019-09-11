@@ -79,6 +79,8 @@ fn parse_args() -> Result<Args, Box<dyn Error>> {
             if let Ok(p) = coding_problems::daily_coding_problem::problem(i) {
                 args.problems.push(p);
             }
+        }
+        for i in 0..1_000_000 {
             if let Ok(p) = coding_problems::project_euler::problem(i) {
                 args.problems.push(p);
             }
