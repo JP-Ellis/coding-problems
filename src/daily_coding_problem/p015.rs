@@ -3,8 +3,10 @@ use std::ops;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Given a stream of elements too large to store in
-memory, pick a random element from the stream with uniform probability."#;
+const STATEMENT: &str = r#"Daily Coding Problem 15
+
+Given a stream of elements too large to store in memory, pick a random element
+from the stream with uniform probability."#;
 
 struct InfinitCounter<T> {
     val: T,

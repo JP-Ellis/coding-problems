@@ -4,8 +4,10 @@ use std::{f64, f64::consts::PI};
 
 pub struct P;
 
-const STATEMENT: &str = r#"The area of a circle is defined as πr². Estimate π to
-3 decimal places using a Monte Carlo method.
+const STATEMENT: &str = r#"Daily Coding Problem 14
+
+The area of a circle is defined as πr². Estimate π to 3 decimal places using a
+Monte Carlo method.
 
 Hint: The basic equation of a circle is x² + y² = r²."#;
 

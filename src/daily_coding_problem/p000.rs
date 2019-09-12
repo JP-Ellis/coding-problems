@@ -2,7 +2,9 @@ use crate::Problem;
 
 pub struct P;
 
-const STATEMENT: &str = r#""#;
+const STATEMENT: &str = r#"Daily Coding Problem
+
+"#;
 
 impl Problem for P {
     fn statement(&self) {
