@@ -58,16 +58,21 @@ mod benches {
         ($f:ident, $n:expr) => {
             #[bench]
             fn $f(b: &mut Bencher) {
-                let v: Vec<_> = (0..$n).collect();
+                let v: Vec<_> = (0..2i64.pow($n)).collect();
 
                 b.iter(|| test::black_box(super::products_except(&v)));
             }
         };
     }
 
-    bench!(n_0004, 4);
-    bench!(n_0016, 16);
-    bench!(n_0064, 64);
-    bench!(n_0256, 256);
-    bench!(n_1024, 1024);
+    bench!(n_01, 01);
+    bench!(n_02, 02);
+    bench!(n_03, 03);
+    bench!(n_04, 04);
+    bench!(n_05, 05);
+    bench!(n_06, 06);
+    bench!(n_07, 07);
+    bench!(n_08, 08);
+    bench!(n_09, 09);
+    bench!(n_10, 10);
 }

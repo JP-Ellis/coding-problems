@@ -76,10 +76,10 @@ mod benches {
         ($f:ident, $n:expr, $sup:expr) => {
             #[bench]
             fn $f(b: &mut Bencher) {
-                let list: Vec<i64> = (0..$n).collect();
+                let list: Vec<i64> = (0..2i64.pow($n)).collect();
 
                 b.iter(|| {
-                    for sum in 1..(2 * $n - 3) {
+                    for sum in 1..(2 * 2i64.pow($n) - 3) {
                         assert!($sup(sum, &list).is_some());
                     }
                 })
@@ -87,15 +87,25 @@ mod benches {
         };
     }
 
-    bench!(naive_0004, 5, super::naive_contains_two_sum);
-    bench!(naive_0016, 10, super::naive_contains_two_sum);
-    bench!(naive_0064, 50, super::naive_contains_two_sum);
-    bench!(naive_0256, 100, super::naive_contains_two_sum);
-    bench!(naive_1024, 500, super::naive_contains_two_sum);
+    bench!(naive_01, 01, super::naive_contains_two_sum);
+    bench!(naive_02, 02, super::naive_contains_two_sum);
+    bench!(naive_03, 03, super::naive_contains_two_sum);
+    bench!(naive_04, 04, super::naive_contains_two_sum);
+    bench!(naive_05, 05, super::naive_contains_two_sum);
+    bench!(naive_06, 06, super::naive_contains_two_sum);
+    bench!(naive_07, 07, super::naive_contains_two_sum);
+    bench!(naive_08, 08, super::naive_contains_two_sum);
+    bench!(naive_09, 09, super::naive_contains_two_sum);
+    bench!(naive_10, 10, super::naive_contains_two_sum);
 
-    bench!(set_0004, 5, super::set_contains_two_sum);
-    bench!(set_0016, 10, super::set_contains_two_sum);
-    bench!(set_0064, 50, super::set_contains_two_sum);
-    bench!(set_0256, 100, super::set_contains_two_sum);
-    bench!(set_1024, 1000, super::set_contains_two_sum);
+    bench!(set_01, 1, super::set_contains_two_sum);
+    bench!(set_02, 2, super::set_contains_two_sum);
+    bench!(set_03, 3, super::set_contains_two_sum);
+    bench!(set_04, 4, super::set_contains_two_sum);
+    bench!(set_05, 5, super::set_contains_two_sum);
+    bench!(set_06, 6, super::set_contains_two_sum);
+    bench!(set_07, 7, super::set_contains_two_sum);
+    bench!(set_08, 8, super::set_contains_two_sum);
+    bench!(set_09, 9, super::set_contains_two_sum);
+    bench!(set_10, 10, super::set_contains_two_sum);
 }
