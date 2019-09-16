@@ -32,7 +32,7 @@ impl Problem for P {
 
     fn solve(&self) -> Result<(), String> {
         let mut pi_mc = 0.0;
-        for n_pow in 1..10 {
+        for n_pow in 1..8 {
             pi_mc = estimate_pi(10u64.pow(n_pow));
             println!(
                 "Approximation of π using 10^{} samples: {:<12}  (Δ = {:.2e})",
@@ -57,4 +57,27 @@ impl Problem for P {
 #[cfg(all(test, feature = "nightly"))]
 mod benches {
     use test::Bencher;
+
+    macro_rules! bench {
+        ($f:ident, $n:expr) => {
+            #[bench]
+            fn $f(b: &mut Bencher) {
+                b.iter(|| {
+                    let pi = super::estimate_pi(2u64.pow($n));
+                    test::black_box(pi);
+                })
+            }
+        };
+    }
+
+    bench!(pi_01, 01);
+    bench!(pi_02, 02);
+    bench!(pi_03, 03);
+    bench!(pi_04, 04);
+    bench!(pi_05, 05);
+    bench!(pi_06, 06);
+    bench!(pi_07, 07);
+    bench!(pi_08, 08);
+    bench!(pi_09, 09);
+    bench!(pi_10, 10);
 }
