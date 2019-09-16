@@ -20,13 +20,15 @@ travis-ci = { repository = "JP-Ellis/coding-problems-rs", branch = "master" }
 codecov = { repository = "JP-Ellis/coding-problems-rs", branch = "master", service = "github" }
 
 [dependencies]
-clap = { version = "2.33.0", features = ["yaml"] }
-fern = { version = "0.5.8", features = ["colored"] }
 log = "0.4.8"
-regex = "1"
-rand = "0.7.0"
-colored = "1.8.0"
 num = "0.2.0"
+rand = "0.7.0"
+
+[dev-dependencies]
+clap = { version = "2.33.0", features = ["yaml"] }
+colored = "1.8.0"
+fern = { version = "0.5.8", features = ["colored"] }
+regex = "1"
 
 [features]
 default = []
