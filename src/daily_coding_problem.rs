@@ -28,6 +28,7 @@ mod p022;
 mod p023;
 mod p024;
 mod p025;
+mod p026;
 
 pub fn problem(i: usize) -> Result<Box<dyn Problem>, String> {
     match i {
@@ -56,7 +57,7 @@ pub fn problem(i: usize) -> Result<Box<dyn Problem>, String> {
         23 => Ok(Box::new(p023::P)),
         24 => Ok(Box::new(p024::P)),
         25 => Ok(Box::new(p025::P)),
-        // 26 => Ok(Box::new(p026::P)),
+        26 => Ok(Box::new(p026::P)),
         // 27 => Ok(Box::new(p027::P)),
         // 28 => Ok(Box::new(p028::P)),
         // 29 => Ok(Box::new(p029::P)),
