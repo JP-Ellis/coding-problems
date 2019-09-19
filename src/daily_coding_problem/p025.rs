@@ -1,10 +1,10 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 25
-
-Implement regular expression matching with the following special characters:
+const STATEMENT: &str = r#"Implement regular expression matching with the
+following special characters:
 
 - `.` (period) which matches any single character
 - `*` (asterisk) which matches zero or more of the preceding element
@@ -21,12 +21,16 @@ return true. The same regular expression on the string "chats" should return
 false."#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 25"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

@@ -1,13 +1,12 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 22
-
-Given a dictionary of words and a string made up of those words (no spaces),
-return the original sentence in a list. If there is more than one possible
-reconstruction, return any of them. If there is no possible reconstruction, then
-return null.
+const STATEMENT: &str = r#"Given a dictionary of words and a string made up of
+those words (no spaces), return the original sentence in a list. If there is
+more than one possible reconstruction, return any of them. If there is no
+possible reconstruction, then return null.
 
 For example, given the set of words 'quick', 'brown', 'the', 'fox', and the
 string "thequickbrownfox", you should return ['the', 'quick', 'brown', 'fox'].
@@ -17,12 +16,16 @@ Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the string
 'and', 'beyond']."#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 22"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

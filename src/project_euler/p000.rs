@@ -1,18 +1,21 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Project Euler
-
-"#;
+const STATEMENT: &str = r#""#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Project Euler"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

@@ -1,22 +1,25 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 13
-
-Given an integer k and a string s, find the length of the longest substring that
-contains at most k distinct characters.
+const STATEMENT: &str = r#"Given an integer k and a string s, find the length of
+the longest substring that contains at most k distinct characters.
 
 For example, given s = "abcba" and k = 2, the longest substring with k distinct
 characters is "bcb"."#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 13"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

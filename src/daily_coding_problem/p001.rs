@@ -1,12 +1,11 @@
-use crate::Problem;
+use crate::{Error, Problem};
 use std::collections::HashSet;
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 1
-
-Given a list of numbers and a number k, return whether any two numbers from the
-list add up to k.
+const STATEMENT: &str = r#"Given a list of numbers and a number k, return
+whether any two numbers from the list add up to k.
 
 For example, given `[10, 15, 3, 7]` and `k` of `17`, return true since `10 + 7` is `17`.
 
@@ -43,19 +42,24 @@ fn set_contains_two_sum(n: i64, list: &[i64]) -> Option<(i64, i64)> {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 1"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         for list in &[&[1, 5, 3, 4, 2][..], &[2, 6, 0], &[4, -3, 2], &[1, 1, 1]] {
-            println!("List: {:?}", list);
+            writeln!(out, "List: {:?}", list)?;
             for n in 0..=10 {
-                println!(
+                writeln!(
+                    out,
                     "Contains 2-sum to {}: {:?}",
                     n,
                     set_contains_two_sum(n, list)
-                );
+                )?;
             }
         }
 
@@ -63,7 +67,7 @@ impl Problem for P {
         {
             Ok(())
         } else {
-            Err("Did not find two-sum".to_string())
+            Err("Did not find two-sum")?
         }
     }
 }

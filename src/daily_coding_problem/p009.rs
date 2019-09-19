@@ -1,11 +1,10 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 9
-
-Given a list of integers, write a function that returns the largest sum of
-non-adjacent numbers. Numbers can be 0 or negative.
+const STATEMENT: &str = r#"Given a list of integers, write a function that
+returns the largest sum of non-adjacent numbers. Numbers can be 0 or negative.
 
 For example, `[2, 4, 6, 2, 5]` should return `13`, since we pick `2`, `6`, and
 `5`. `[5, 1, 1, 5]` should return `10`, since we pick `5` and `5`.
@@ -34,11 +33,15 @@ fn max_sum(l: &[i64]) -> i64 {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 9"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         for list in &[
             &[1, 5, 3, 4, 2][..],
             &[2, 6, 0],
@@ -48,13 +51,13 @@ impl Problem for P {
             &[2, 4, 6, 2, 5],
             &[5, 1, 1, 5],
         ] {
-            println!("{:?} => {}", list, max_sum(list));
+            writeln!(out, "{:?} => {}", list, max_sum(list))?;
         }
 
         if max_sum(&[2, 4, 6, 2, 5]) == 13 && max_sum(&[5, 1, 1, 5]) == 10 {
             Ok(())
         } else {
-            Err("Did not get the desired sum.".to_string())
+            Err("Did not get the desired sum.")?
         }
     }
 }

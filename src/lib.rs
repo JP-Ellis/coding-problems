@@ -21,11 +21,91 @@ extern crate test;
 pub mod daily_coding_problem;
 pub mod project_euler;
 
+use std::{error, fmt, io, io::prelude::*};
+
 /// Problem
 pub trait Problem {
-    /// Print the problem statement, including the example.
-    fn statement(&self);
+    /// Output the problem's name
+    fn name(&self) -> &str;
 
-    /// Solve the problem with the basic
-    fn solve(&self) -> Result<(), String>;
+    /// Output the problem's statement
+    fn statement(&self) -> &str;
+
+    /// Solve the problem, writing any information to the `out`.
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error>;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Error
+////////////////////////////////////////////////////////////////////////////////
+
+#[derive(Debug)]
+pub enum Error {
+    Unimplemented,
+    Failed(String),
+    Io(io::Error),
+}
+
+impl Error {
+    /// Return true of the problem failed to produce the expected result.
+    ///
+    /// This is distinct to other possible errors which meant that the result
+    /// could not be computed.
+    pub fn is_failed(&self) -> bool {
+        match self {
+            Self::Failed(..) => true,
+            _ => false,
+        }
+    }
+
+    /// Return true if the problem is not implemented.
+    pub fn is_unimplemented(&self) -> bool {
+        match self {
+            Self::Unimplemented => true,
+            _ => false,
+        }
+    }
+}
+
+impl error::Error for Error {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
+        match self {
+            Self::Io(e) => Some(e),
+            _ => None,
+        }
+    }
+}
+
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        match self {
+            Self::Unimplemented => write!(f, "not implemented"),
+            Self::Failed(s) => write!(f, "{}", s),
+            Self::Io(e) => write!(f, "{}", e),
+        }
+    }
+}
+
+impl From<()> for Error {
+    fn from(_: ()) -> Self {
+        Self::Unimplemented
+    }
+}
+
+impl From<String> for Error {
+    fn from(s: String) -> Self {
+        Self::Failed(s)
+    }
+}
+
+impl From<&str> for Error {
+    fn from(s: &str) -> Self {
+        Self::Failed(s.into())
+    }
+}
+
+impl From<io::Error> for Error {
+    fn from(e: io::Error) -> Self {
+        Self::Io(e)
+    }
 }

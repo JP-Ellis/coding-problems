@@ -1,11 +1,10 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 8
-
-A unival tree (which stands for "universal value") is a tree where all nodes
-under it have the same value.
+const STATEMENT: &str = r#"A unival tree (which stands for "universal value") is
+a tree where all nodes under it have the same value.
 
 Given the root to a binary tree, count the number of unival subtrees.
 
@@ -59,11 +58,15 @@ impl<T: Eq> Node<T> {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 8"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         let tree0 = Node::leaf(true);
         let tree1 = Node {
             val: true,
@@ -93,15 +96,15 @@ impl Problem for P {
             })),
         };
 
-        println!("Tree 0: {}", tree0.count_universal_subtrees());
-        println!("Tree 1: {}", tree1.count_universal_subtrees());
-        println!("Tree 2: {}", tree2.count_universal_subtrees());
-        println!("Tree 3: {}", tree3.count_universal_subtrees());
+        writeln!(out, "Tree 0: {}", tree0.count_universal_subtrees())?;
+        writeln!(out, "Tree 1: {}", tree1.count_universal_subtrees())?;
+        writeln!(out, "Tree 2: {}", tree2.count_universal_subtrees())?;
+        writeln!(out, "Tree 3: {}", tree3.count_universal_subtrees())?;
 
         if tree3.count_universal_subtrees() == 5 {
             Ok(())
         } else {
-            Err("Did not calculated the correct number of subtrees.".to_string())
+            Err("Did not calculated the correct number of subtrees.")?
         }
     }
 }

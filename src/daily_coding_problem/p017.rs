@@ -1,10 +1,10 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 17
-
-Suppose we represent our file system by a string in the following manner:
+const STATEMENT: &str = r#"Suppose we represent our file system by a string in
+the following manner:
 
 The string `"dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext"` represents:
 
@@ -53,12 +53,16 @@ The name of a file contains at least a period and an extension.
 The name of a directory or sub-directory will not contain a period."#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 17"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

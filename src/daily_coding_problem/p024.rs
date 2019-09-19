@@ -1,11 +1,11 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem
-
-Implement locking in a binary tree. A binary tree node can be locked or unlocked
-only if all of its descendants or ancestors are not locked.
+const STATEMENT: &str = r#"Implement locking in a binary tree. A binary tree
+node can be locked or unlocked only if all of its descendants or ancestors are
+not locked.
 
 Design a binary tree node class with the following methods:
 
@@ -21,12 +21,16 @@ no need for actual locks or mutexes. Each method should run in O(h), where h is
 the height of the tree.  "#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 24"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

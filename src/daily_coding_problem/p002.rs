@@ -1,10 +1,10 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 2
-
-Given an array of integers, return a new array such that each element at index i
+const STATEMENT: &str =
+    r#"Given an array of integers, return a new array such that each element at index i
 of the new array is the product of all the numbers in the original array except
 the one at i.
 
@@ -25,13 +25,17 @@ fn products_except(list: &[i64]) -> Vec<i64> {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 2"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         for list in &[&[1, 2, 3, 4, 5][..], &[-5, 0, 2], &[2, 1, 2]] {
-            println!("{:?} => {:?}", list, products_except(list));
+            writeln!(out, "{:?} => {:?}", list, products_except(list))?;
         }
 
         if products_except(&[1, 2, 3, 4, 5]) == vec![120, 60, 40, 30, 24]
@@ -45,7 +49,7 @@ impl Problem for P {
                 vec![120, 60, 40, 30, 24],
                 products_except(&[3, 2, 1]),
                 vec![2, 3, 6]
-            ))
+            ))?
         }
     }
 }

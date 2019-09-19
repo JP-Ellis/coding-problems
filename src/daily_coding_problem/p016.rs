@@ -1,11 +1,11 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 16
-
-You run an e-commerce website and want to record the last N order ids in a
-log. Implement a data structure to accomplish this, with the following API:
+const STATEMENT: &str = r#"You run an e-commerce website and want to record the
+last N order ids in a log. Implement a data structure to accomplish this, with
+the following API:
 
 - `record(order_id)`: adds the order_id to the log
 - `get_last(i)`: gets the ith last element from the log. i is guaranteed to be
@@ -14,12 +14,16 @@ log. Implement a data structure to accomplish this, with the following API:
 You should be as efficient with time and space as possible."#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 16"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

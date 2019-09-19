@@ -1,18 +1,20 @@
 use clap::{crate_authors, crate_version, load_yaml, App};
-use coding_problems::Problem;
+use coding_problems::{Error, Problem};
 use colored::Colorize;
 use fern::colors;
 use regex::Regex;
-use std::{error::Error, io};
+use std::{error, io, io::prelude::*};
 
 /// Global configuration
-pub struct Args {
-    problems: Vec<Box<dyn Problem>>,
+pub struct Args<'a> {
+    summary: bool,
+    problems: Vec<&'a dyn Problem>,
 }
 
-impl Default for Args {
+impl<'a> Default for Args<'a> {
     fn default() -> Self {
         Args {
+            summary: false,
             problems: Vec::new(),
         }
     }
@@ -57,7 +59,7 @@ fn setup_logging(verbosity: usize) -> Result<(), log::SetLoggerError> {
 }
 
 /// Parse command line arguments and store them in the `Args` struct.
-fn parse_args() -> Result<Args, Box<dyn Error>> {
+fn parse_args<'a>() -> Result<Args<'a>, Box<dyn error::Error>> {
     let yml = load_yaml!("args.yml");
     let app = App::from_yaml(yml)
         .author(crate_authors!())
@@ -70,6 +72,10 @@ fn parse_args() -> Result<Args, Box<dyn Error>> {
     setup_logging(verbosity)?;
 
     let mut args = Args::default();
+
+    if matches.occurrences_of("summary") == 1 {
+        args.summary = true;
+    }
 
     let dcp_regex = Regex::new(r"^(dcp|dc)(?P<num>\d+)$")?;
     let pe_regex = Regex::new(r"^pe(?P<num>\d+)$")?;
@@ -91,14 +97,17 @@ fn parse_args() -> Result<Args, Box<dyn Error>> {
     if let Some(problems) = matches.values_of("problem") {
         for problem in problems {
             if let Some(caps) = dcp_regex.captures(problem) {
-                args.problems
-                    .push(coding_problems::daily_coding_problem::problem(
-                        caps.name("num").unwrap().as_str().parse()?,
-                    )?)
+                let num = caps.name("num").unwrap().as_str().parse()?;
+                match coding_problems::daily_coding_problem::problem(num) {
+                    Ok(p) => args.problems.push(p),
+                    Err(i) => Err(format!("Unable to find Daily Coding Problem #{}", i))?,
+                }
             } else if let Some(caps) = pe_regex.captures(problem) {
-                args.problems.push(coding_problems::project_euler::problem(
-                    caps.name("num").unwrap().as_str().parse()?,
-                )?)
+                let num = caps.name("num").unwrap().as_str().parse()?;
+                match coding_problems::project_euler::problem(num) {
+                    Ok(p) => args.problems.push(p),
+                    Err(i) => Err(format!("Unable to find Project Euler #{}", i))?,
+                }
             }
         }
     }
@@ -107,22 +116,59 @@ fn parse_args() -> Result<Args, Box<dyn Error>> {
 }
 
 /// Main function
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> Result<(), Box<dyn error::Error>> {
     let args = parse_args()?;
 
-    for problem in args.problems {
-        println!(
-            "================================================================================"
-        );
-        problem.statement();
-        println!(
-            "--------------------------------------------------------------------------------"
-        );
-        if let Err(e) = problem.solve() {
-            println!("{}", e.red());
-        } else {
-            println!("{}", "Success!".green());
+    if args.summary {
+        for problem in args.problems {
+            summary(problem)?;
         }
+    } else {
+        for problem in args.problems {
+            run(problem)?;
+        }
+    }
+
+    Ok(())
+}
+
+/// Run the problems within the config, displaying both the problem and the outputs
+fn run(problem: &dyn Problem) -> Result<(), Error> {
+    let mut out = io::stdout();
+    writeln!(
+        out,
+        "================================================================================"
+    )?;
+    writeln!(out, "{}", Colorize::bold(problem.name()))?;
+    writeln!(
+        out,
+        "--------------------------------------------------------------------------------"
+    )?;
+    writeln!(out, "{}", problem.statement())?;
+    writeln!(
+        out,
+        "--------------------------------------------------------------------------------"
+    )?;
+    match problem.solve(&mut out) {
+        Ok(()) => writeln!(out, "{}", "Success!".green())?,
+        Err(Error::Unimplemented) => writeln!(out, "{}", "unimplemented".red())?,
+        Err(Error::Failed(s)) => writeln!(out, "{}", format!("Failed: {}", s).bright_red())?,
+        Err(Error::Io(e)) => writeln!(out, "Io: {}", e)?,
+    }
+
+    Ok(())
+}
+
+/// Provide a summary of whether each problem succeeds
+fn summary(problem: &dyn Problem) -> Result<(), Error> {
+    let mut out = io::stdout();
+    write!(out, "{}: ", problem.name())?;
+
+    match problem.solve(&mut io::sink()) {
+        Ok(()) => writeln!(out, "{}", "Success!".green())?,
+        Err(Error::Unimplemented) => writeln!(out, "{}", "unimplemented".red())?,
+        Err(Error::Failed(s)) => writeln!(out, "{}", format!("Failed: {}", s).bright_red())?,
+        Err(Error::Io(e)) => writeln!(out, "Io: {}", e)?,
     }
 
     Ok(())

@@ -1,13 +1,12 @@
-use crate::Problem;
+use crate::{Error, Problem};
 use std::collections::HashMap;
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 11
-
-Implement an autocomplete system. That is, given a query string `s` and a set of
-all possible query strings, return all strings in the set that have `s` as a
-prefix.
+const STATEMENT: &str = r#"Implement an autocomplete system. That is, given a
+query string `s` and a set of all possible query strings, return all strings in
+the set that have `s` as a prefix.
 
 For example, given the query string de and the set of strings `[dog, deer, deal]`,
 return `[deer, deal]`.
@@ -89,11 +88,15 @@ impl Dictionary {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 11"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         let mut dict = Dictionary::new();
         dict.insert("hello");
         dict.insert("hell");
@@ -101,7 +104,7 @@ impl Problem for P {
         dict.insert("other");
 
         for start in &["", "h", "he", "hel", "hell", "hello"] {
-            println!("{:<5} => {:?}", start, dict.completions(start));
+            writeln!(out, "{:<5} => {:?}", start, dict.completions(start))?;
         }
 
         Ok(())

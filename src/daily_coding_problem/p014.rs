@@ -1,13 +1,12 @@
-use crate::Problem;
+use crate::{Error, Problem};
 use rand::prelude::*;
+use std::io::prelude::*;
 use std::{f64, f64::consts::PI};
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 14
-
-The area of a circle is defined as πr². Estimate π to 3 decimal places using a
-Monte Carlo method.
+const STATEMENT: &str = r#"The area of a circle is defined as πr². Estimate π to
+3 decimal places using a Monte Carlo method.
 
 Hint: The basic equation of a circle is x² + y² = r²."#;
 
@@ -26,20 +25,25 @@ fn estimate_pi(n: u64) -> f64 {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 14"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         let mut pi_mc = 0.0;
         for n_pow in 1..8 {
             pi_mc = estimate_pi(10u64.pow(n_pow));
-            println!(
+            writeln!(
+                out,
                 "Approximation of π using 10^{} samples: {:<12}  (Δ = {:.2e})",
                 n_pow,
                 pi_mc,
                 (pi_mc - PI).abs()
-            );
+            )?;
         }
 
         if (pi_mc - PI).abs() < 1e-3 {
@@ -49,7 +53,7 @@ impl Problem for P {
                 "Estimate value of π: {}.  Error: {}",
                 pi_mc,
                 (pi_mc - PI).abs()
-            ))
+            ))?
         }
     }
 }

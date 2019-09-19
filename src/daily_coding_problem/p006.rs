@@ -1,15 +1,14 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 use std::ptr::{null, null_mut};
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 6
-
-An XOR linked list is a more memory efficient doubly linked list. Instead of
-each node holding next and prev fields, it holds a field named both, which is an
-XOR of the next node and the previous node. Implement an XOR linked list; it has
-an add(element) which adds the element to the end, and a get(index) which
-returns the node at index.
+const STATEMENT: &str = r#"An XOR linked list is a more memory efficient doubly
+linked list. Instead of each node holding next and prev fields, it holds a field
+named both, which is an XOR of the next node and the previous node. Implement an
+XOR linked list; it has an add(element) which adds the element to the end, and a
+get(index) which returns the node at index.
 
 If using a language that has no pointers (such as Python), you can assume you
 have access to get_pointer and dereference_pointer functions that converts
@@ -130,11 +129,15 @@ impl<T> Drop for XorNode<T> {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 6"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
         let mut head = XorNode::new(0);
 
         let max = 1000;
@@ -145,10 +148,10 @@ impl Problem for P {
         for i in 0..max {
             if let Some(node) = head.get(i) {
                 if node.val != i {
-                    return Err(format!("Error in getting node {}, got {}.", i, node.val));
+                    return Err(format!("Error in getting node {}, got {}.", i, node.val))?;
                 }
             } else {
-                return Err(format!("Unable to get node {}.", i));
+                return Err(format!("Unable to get node {}.", i))?;
             }
         }
 
@@ -156,17 +159,17 @@ impl Problem for P {
             if let Some(node) = head.get_mut(i) {
                 node.val *= 2;
             } else {
-                return Err(format!("Unable to get_mut node {}.", i));
+                return Err(format!("Unable to get_mut node {}.", i))?;
             }
         }
 
         for i in 0..max {
             if let Some(node) = head.get(i) {
                 if node.val != 2 * i {
-                    return Err(format!("Error in getting node {}, got {}.", i, node.val));
+                    return Err(format!("Error in getting node {}, got {}.", i, node.val))?;
                 }
             } else {
-                return Err(format!("Unable to get node {}.", i));
+                return Err(format!("Unable to get node {}.", i))?;
             }
         }
 

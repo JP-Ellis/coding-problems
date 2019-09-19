@@ -24,12 +24,15 @@ log = "0.4.8"
 num = "0.2.0"
 rand = "0.7.0"
 
-[dev-dependencies]
-clap = { version = "2.33.0", features = ["yaml"] }
-colored = "1.8.0"
-fern = { version = "0.5.8", features = ["colored"] }
-regex = "1"
+# Optional dependencies
+clap = { version = "2.33.0", features = ["yaml"], optional = true }
+colored = { version = "1.8.0", optional = true }
+fern = { version = "0.5.8", features = ["colored"], optional = true }
+regex = { version = "1", optional = true }
 
 [features]
-default = []
+default = ["bin"]
+
 nightly = []
+
+bin = ["clap", "colored", "fern", "regex"]

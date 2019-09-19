@@ -1,13 +1,12 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 4
-
-Given an array of integers, find the first missing positive integer in linear
-time and constant space. In other words, find the lowest positive integer that
-does not exist in the array. The array can contain duplicates and negative
-numbers as well.
+const STATEMENT: &str = r#"Given an array of integers, find the first missing
+positive integer in linear time and constant space. In other words, find the
+lowest positive integer that does not exist in the array. The array can contain
+duplicates and negative numbers as well.
 
 For example, the input `[3, 4, -1, 1]` should give `2`. The input `[1, 2, 0]`
 should give `3`.
@@ -36,11 +35,15 @@ fn find_missing(list: &mut [i64]) -> i64 {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 4"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         for list in &mut [
             &mut [3, 4, -1, 1][..],
             &mut [1, 2, 0],
@@ -49,14 +52,14 @@ impl Problem for P {
             &mut [1, 1, 2, 3, 4, 3, 5, 3],
             &mut [],
         ] {
-            print!("List: {:?} => ", list);
-            println!("{}", find_missing(list));
+            write!(out, "List: {:?} => ", list)?;
+            writeln!(out, "{}", find_missing(list))?;
         }
 
         if find_missing(&mut [3, 4, -1, 1]) == 2 && find_missing(&mut [1, 2, 0]) == 3 {
             Ok(())
         } else {
-            Err("Incorrectly found the correct missing integer.".to_string())
+            Err("Incorrectly found the correct missing integer.")?
         }
     }
 }

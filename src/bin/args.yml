@@ -16,6 +16,13 @@ args:
         Increase the verbosity of errors.  The errors are outputted to the
         standard error stream and thus do not appear in the output.  This option
         can be specified multiple times for increasing levels of verbosity.
+  - summary:
+      short: s
+      long: summary
+      multiple: false
+      takes_value: false
+      help: >-
+        Only display whether each test is successful or not.
   - all:
       short: a
       long: all

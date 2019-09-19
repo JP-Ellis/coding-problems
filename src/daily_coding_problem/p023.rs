@@ -1,12 +1,11 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 23
-
-You are given an M by N matrix consisting of booleans that represents a
-board. Each True boolean represents a wall. Each False boolean represents a tile
-you can walk on.
+const STATEMENT: &str = r#"You are given an M by N matrix consisting of booleans
+that represents a board. Each True boolean represents a wall. Each False boolean
+represents a tile you can walk on.
 
 Given this matrix, a start coordinate, and an end coordinate, return the minimum
 number of steps required to reach the end coordinate from the start. If there is
@@ -27,12 +26,16 @@ number of steps required to reach the end is 7, since we would need to go
 through (1, 2) because there is a wall everywhere else on the second row."#;
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 23"
     }
 
-    fn solve(&self) -> Result<(), String> {
-        Err("not implemented".to_string())
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, _out: &mut dyn Write) -> Result<(), Error> {
+        Err(())?
     }
 }
 

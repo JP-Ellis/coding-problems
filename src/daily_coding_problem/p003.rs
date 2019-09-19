@@ -1,12 +1,11 @@
-use crate::Problem;
+use crate::{Error, Problem};
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 3
-
-Given the root to a binary tree, implement serialize(root), which serializes the
-tree into a string, and deserialize(s), which deserializes the string back into
-the tree.
+const STATEMENT: &str = r#"Given the root to a binary tree, implement
+serialize(root), which serializes the tree into a string, and deserialize(s),
+which deserializes the string back into the tree.
 
 For example, given the following Node class
 
@@ -128,11 +127,15 @@ where
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 3"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         let leaf = Node::new("leaf", None, None);
         let left = Node::new("left-only", Some(Node::new("leaf", None, None)), None);
         let right = Node::new("right-only", None, Some(Node::new("left", None, None)));
@@ -149,16 +152,16 @@ impl Problem for P {
 
         for node in &[leaf, left, right, root, special] {
             let serialized = serialize(node);
-            println!("Serialized node: {}", serialized);
+            writeln!(out, "Serialized node: {}", serialized)?;
             match deserialize(&mut serialized.chars().enumerate())? {
                 Some(n) => {
                     if &n != node {
-                        return Err("Deserialized node does not match original node.".to_string());
+                        return Err("Deserialized node does not match original node.")?;
                     } else {
-                        println!("-> Successful deserialization.")
+                        writeln!(out, "-> Successful deserialization.")?;
                     }
                 }
-                None => return Err("Expected a node, but deserialized 'None'".to_string()),
+                None => return Err("Expected a node, but deserialized 'None'")?,
             }
         }
 

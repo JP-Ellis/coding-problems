@@ -1,12 +1,11 @@
-use crate::Problem;
+use crate::{Error, Problem};
 use std::collections::HashMap;
+use std::io::prelude::*;
 
 pub struct P;
 
-const STATEMENT: &str = r#"Daily Coding Problem 7
-
-Given the mapping `a = 1`, `b = 2`, ... `z = 26`, and an encoded message, count
-the number of ways it can be decoded.
+const STATEMENT: &str = r#"Given the mapping `a = 1`, `b = 2`, ... `z = 26`, and
+an encoded message, count the number of ways it can be decoded.
 
 For example, the message `'111'` would give `3`, since it could be decoded as `'aaa'`,
 `'ka'`, and `'ak'`.
@@ -39,11 +38,15 @@ fn decode(map: &HashMap<String, String>, s: &str) -> Vec<String> {
 }
 
 impl Problem for P {
-    fn statement(&self) {
-        println!("{}", STATEMENT);
+    fn name(&self) -> &str {
+        "Daily Coding Problem 7"
     }
 
-    fn solve(&self) -> Result<(), String> {
+    fn statement(&self) -> &str {
+        STATEMENT
+    }
+
+    fn solve(&self, out: &mut dyn Write) -> Result<(), Error> {
         let map = [
             ("1", "a"),
             ("2", "b"),
@@ -77,13 +80,13 @@ impl Problem for P {
         .collect();
 
         for message in &["1", "111", "001", "123456789", "101112"] {
-            println!("{} => {:?}", message, decode(&map, message));
+            writeln!(out, "{} => {:?}", message, decode(&map, message))?;
         }
 
         if decode(&map, "111").len() == 3 {
             Ok(())
         } else {
-            Err("Decoding '111' gave the wrong number of results.".to_string())
+            Err("Decoding '111' gave the wrong number of results.")?
         }
     }
 }
