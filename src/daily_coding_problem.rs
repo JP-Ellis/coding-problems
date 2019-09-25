@@ -35,6 +35,7 @@ mod p029;
 mod p030;
 mod p031;
 mod p032;
+mod p033;
 
 pub fn problem(i: usize) -> Result<&'static dyn Problem, usize> {
     match i {
@@ -70,7 +71,7 @@ pub fn problem(i: usize) -> Result<&'static dyn Problem, usize> {
         30 => Ok(&p030::P),
         31 => Ok(&p031::P),
         32 => Ok(&p032::P),
-        // 33 => Ok(&p033::P),
+        33 => Ok(&p033::P),
         // 34 => Ok(&p034::P),
         // 35 => Ok(&p035::P),
         // 36 => Ok(&p036::P),
