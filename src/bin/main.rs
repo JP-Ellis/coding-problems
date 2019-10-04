@@ -77,8 +77,8 @@ fn parse_args<'a>() -> Result<Args<'a>, Box<dyn error::Error>> {
         args.summary = true;
     }
 
-    let dcp_regex = Regex::new(r"^(dcp|dc)(?P<num>\d+)$")?;
-    let pe_regex = Regex::new(r"^pe(?P<num>\d+)$")?;
+    let dcp_regex = Regex::new(r"(?i)^(dcp|dc)(?P<num>\d+)$")?;
+    let pe_regex = Regex::new(r"(?i)^pe(?P<num>\d+)$")?;
 
     if matches.occurrences_of("all") == 1 {
         for i in 0..1_000_000 {
