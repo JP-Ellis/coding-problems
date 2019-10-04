@@ -44,7 +44,7 @@ mod p038;
 mod p039;
 mod p040;
 mod p041;
-// mod p042;
+mod p042;
 // mod p043;
 // mod p044;
 // mod p045;
@@ -146,7 +146,7 @@ pub fn problem(i: usize) -> Result<&'static dyn Problem, usize> {
         39 => Ok(&p039::P),
         40 => Ok(&p040::P),
         41 => Ok(&p041::P),
-        // 42 => Ok(&p042::P),
+        42 => Ok(&p042::P),
         // 43 => Ok(&p043::P),
         // 44 => Ok(&p044::P),
         // 45 => Ok(&p045::P),
