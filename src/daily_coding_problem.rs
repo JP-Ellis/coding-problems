@@ -65,15 +65,15 @@ mod p059;
 mod p060;
 mod p061;
 mod p062;
-// mod p063;
-// mod p064;
-// mod p065;
-// mod p066;
-// mod p067;
-// mod p068;
-// mod p069;
-// mod p070;
-// mod p071;
+mod p063;
+mod p064;
+mod p065;
+mod p066;
+mod p067;
+mod p068;
+mod p069;
+mod p070;
+mod p071;
 // mod p072;
 // mod p073;
 // mod p074;
@@ -167,15 +167,15 @@ pub fn problem(i: usize) -> Result<&'static dyn Problem, usize> {
         60 => Ok(&p060::P),
         61 => Ok(&p061::P),
         62 => Ok(&p062::P),
-        // 63 => Ok(&p063::P),
-        // 64 => Ok(&p064::P),
-        // 65 => Ok(&p065::P),
-        // 66 => Ok(&p066::P),
-        // 67 => Ok(&p067::P),
-        // 68 => Ok(&p068::P),
-        // 69 => Ok(&p069::P),
-        // 70 => Ok(&p070::P),
-        // 71 => Ok(&p071::P),
+        63 => Ok(&p063::P),
+        64 => Ok(&p064::P),
+        65 => Ok(&p065::P),
+        66 => Ok(&p066::P),
+        67 => Ok(&p067::P),
+        68 => Ok(&p068::P),
+        69 => Ok(&p069::P),
+        70 => Ok(&p070::P),
+        71 => Ok(&p071::P),
         // 72 => Ok(&p072::P),
         // 73 => Ok(&p073::P),
         // 74 => Ok(&p074::P),
