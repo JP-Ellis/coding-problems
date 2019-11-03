@@ -74,8 +74,8 @@ mod p068;
 mod p069;
 mod p070;
 mod p071;
-// mod p072;
-// mod p073;
+mod p072;
+mod p073;
 // mod p074;
 // mod p075;
 // mod p076;
@@ -176,8 +176,8 @@ pub fn problem(i: usize) -> Result<&'static dyn Problem, usize> {
         69 => Ok(&p069::P),
         70 => Ok(&p070::P),
         71 => Ok(&p071::P),
-        // 72 => Ok(&p072::P),
-        // 73 => Ok(&p073::P),
+        72 => Ok(&p072::P),
+        73 => Ok(&p073::P),
         // 74 => Ok(&p074::P),
         // 75 => Ok(&p075::P),
         // 76 => Ok(&p076::P),
