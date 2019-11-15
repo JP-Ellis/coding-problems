@@ -76,17 +76,17 @@ mod p070;
 mod p071;
 mod p072;
 mod p073;
-// mod p074;
-// mod p075;
-// mod p076;
-// mod p077;
-// mod p078;
-// mod p079;
-// mod p080;
-// mod p081;
-// mod p082;
-// mod p083;
-// mod p084;
+mod p074;
+mod p075;
+mod p076;
+mod p077;
+mod p078;
+mod p079;
+mod p080;
+mod p081;
+mod p082;
+mod p083;
+mod p084;
 // mod p085;
 // mod p086;
 // mod p087;
@@ -178,17 +178,17 @@ pub fn problem(i: usize) -> Result<&'static dyn Problem, usize> {
         71 => Ok(&p071::P),
         72 => Ok(&p072::P),
         73 => Ok(&p073::P),
-        // 74 => Ok(&p074::P),
-        // 75 => Ok(&p075::P),
-        // 76 => Ok(&p076::P),
-        // 77 => Ok(&p077::P),
-        // 78 => Ok(&p078::P),
-        // 79 => Ok(&p079::P),
-        // 80 => Ok(&p080::P),
-        // 81 => Ok(&p081::P),
-        // 82 => Ok(&p082::P),
-        // 83 => Ok(&p083::P),
-        // 84 => Ok(&p084::P),
+        74 => Ok(&p074::P),
+        75 => Ok(&p075::P),
+        76 => Ok(&p076::P),
+        77 => Ok(&p077::P),
+        78 => Ok(&p078::P),
+        79 => Ok(&p079::P),
+        80 => Ok(&p080::P),
+        81 => Ok(&p081::P),
+        82 => Ok(&p082::P),
+        83 => Ok(&p083::P),
+        84 => Ok(&p084::P),
         // 85 => Ok(&p085::P),
         // 86 => Ok(&p086::P),
         // 87 => Ok(&p087::P),
