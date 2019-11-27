@@ -87,19 +87,19 @@ mod p081;
 mod p082;
 mod p083;
 mod p084;
-// mod p085;
-// mod p086;
-// mod p087;
-// mod p088;
-// mod p089;
-// mod p090;
-// mod p091;
-// mod p092;
-// mod p093;
-// mod p094;
-// mod p095;
-// mod p096;
-// mod p097;
+mod p085;
+mod p086;
+mod p087;
+mod p088;
+mod p089;
+mod p090;
+mod p091;
+mod p092;
+mod p093;
+mod p094;
+mod p095;
+mod p096;
+mod p097;
 // mod p098;
 // mod p099;
 
@@ -189,19 +189,19 @@ pub fn problem(i: usize) -> Result<&'static dyn Problem, usize> {
         82 => Ok(&p082::P),
         83 => Ok(&p083::P),
         84 => Ok(&p084::P),
-        // 85 => Ok(&p085::P),
-        // 86 => Ok(&p086::P),
-        // 87 => Ok(&p087::P),
-        // 88 => Ok(&p088::P),
-        // 89 => Ok(&p089::P),
-        // 90 => Ok(&p090::P),
-        // 91 => Ok(&p091::P),
-        // 92 => Ok(&p092::P),
-        // 93 => Ok(&p093::P),
-        // 94 => Ok(&p094::P),
-        // 95 => Ok(&p095::P),
-        // 96 => Ok(&p096::P),
-        // 97 => Ok(&p097::P),
+        85 => Ok(&p085::P),
+        86 => Ok(&p086::P),
+        87 => Ok(&p087::P),
+        88 => Ok(&p088::P),
+        89 => Ok(&p089::P),
+        90 => Ok(&p090::P),
+        91 => Ok(&p091::P),
+        92 => Ok(&p092::P),
+        93 => Ok(&p093::P),
+        94 => Ok(&p094::P),
+        95 => Ok(&p095::P),
+        96 => Ok(&p096::P),
+        97 => Ok(&p097::P),
         // 98 => Ok(&p098::P),
         // 99 => Ok(&p099::P),
         i => Err(i),
